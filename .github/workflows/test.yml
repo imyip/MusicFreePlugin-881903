@@ -2,18 +2,22 @@ name: 打包
 on: 
     workflow_dispatch:
 jobs:
-    build-macos: 
-        runs-on: macos-latest
-        steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
-              with:
-                node-version: 16
-            - run: node -p -e '`VERSION=${require("./package.json").version}`' >> $GITHUB_ENV
-            - run: echo ${{ env.VERSION }}
-            - run: echo ${{ env }}
-            - run: npm install
-            - uses: flarum/action-build@2
-              with:
-                  github_token: ${{ secrets.GITHUB_TOKEN }}
-                  build_script: build
+   deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build
+        uses: actions/setup-node@master
+        with:
+          node-version: '16.x'
+      - run: npm install
+      - run: npm run build
+
+      - run: |
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git add .
+            git commit -m "Automatic build and commit after successful build" -a
+            git push
+

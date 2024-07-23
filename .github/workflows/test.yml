@@ -13,4 +13,7 @@ jobs:
             - run: echo ${{ env.VERSION }}
             - run: echo ${{ env }}
             - run: npm install
-            - run: npm run build
+            - uses: flarum/action-build@2
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  build_script: build

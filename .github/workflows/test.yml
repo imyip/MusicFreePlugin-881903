@@ -19,5 +19,5 @@ jobs:
             git config --local user.name "GitHub Action"
             git add .
             git commit -m "Automatic build and commit after successful build" -a
-            git push https://${{ secrets.PAT_TOKEN }}@github.com/imyip/MusicFreePlugin-881903.git
+            git push
 

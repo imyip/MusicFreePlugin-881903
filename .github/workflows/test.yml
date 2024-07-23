@@ -6,14 +6,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Build
         uses: actions/setup-node@master
         with:
           node-version: '16.x'
       - run: npm install
       - run: npm run build
-
       - run: |
             git config --local user.email "action@github.com"
             git config --local user.name "GitHub Action"
